@@ -2,7 +2,7 @@
   "name": "fe3hsim",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://fe3h.table.io/",
+  "homepage": "https://brenbln.github.io/fe3htable/",
   "dependencies": {
     "@material-ui/core": "^4.3.3",
     "gh-pages": "^2.1.1",
@@ -12,7 +12,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "predeploy": "yarn run build",
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "build": "react-scripts build",
     "test": "react-scripts test",
