@@ -16,6 +16,8 @@ const useStyles = makeStyles(theme => ({
     root: {
         display: 'flex',
         flexWrap: 'wrap',
+        paddingTop: '10px',
+        paddingLeft: '2%'
     },
     formControl: {
         margin: theme.spacing(1),
@@ -28,8 +30,8 @@ const generateList = (list, data) => {
     var tempID = 0;
     for (var tempName in data.name) {
         list.push({
-                id: tempID,
-                name: tempName
+            id: tempID,
+            name: tempName
         });
         tempID++;
     }
@@ -38,45 +40,57 @@ const generateList = (list, data) => {
 generateList(characterList, CharBase);
 generateList(classList, ClassGrowth);
 
+const DropdownSelect = props => {
+    const classes = props.classes,
+        handleChange = props.handleChange,
+        inputLabel = props.inputLabel,
+        selectName = props.selectName,
+        selectValue = props.selectValue,
+        selectList = props.selectList;
+    return (
+        <FormControl className={classes.formControl}>
+            <InputLabel>{inputLabel}</InputLabel>
+            <Select
+                name={selectName}
+                value={selectValue}
+                onChange={handleChange}
+            >
+                {
+                    selectList.map((select) =>
+                        <MenuItem key={select.id} value={select.name}>{select.name}</MenuItem>
+                    )
+                }
+            </Select>
+        </FormControl>
+    )
+}
+
 const Selector = props => {
     const classes = useStyles();
 
     const handleChange = event => {
-            props.onUpdate(event.target.name, event.target.value);      
+        props.onUpdate(event.target.name, event.target.value);
     }
 
     return (
         <form className={classes.root} autoComplete="off">
-            <Grid container direction='row'>
-                <FormControl className={classes.formControl}>
-                    <InputLabel>Character</InputLabel>
-                    <Select
-                        name="char-change"
-                        value={props.character.unitName}
-                        onChange={handleChange}
-                    >
-                        {
-                            characterList.map((char) =>
-                                <MenuItem key={char.id} value={char.name}>{char.name}</MenuItem>
-                            )
-                        }
-                    </Select>
-                </FormControl>
-
-                <FormControl className={classes.formControl}>
-                    <InputLabel>Class</InputLabel>
-                    <Select
-                        name="class-change"
-                        value={props.character.className}
-                        onChange={handleChange}
-                    >
-                        {
-                            classList.map((clName) =>
-                                <MenuItem key={clName.id} value={clName.name}>{clName.name}</MenuItem>
-                            )
-                        }
-                    </Select>
-                </FormControl>
+            <Grid container direction='column'>
+                <DropdownSelect 
+                    classes={classes}
+                    handleChange={handleChange}
+                    inputLabel={'Character'}
+                    selectName={'char-change'}
+                    selectValue={props.character.unitName}
+                    selectList={characterList}
+                />
+                <DropdownSelect 
+                    classes={classes}
+                    handleChange={handleChange}
+                    inputLabel={'Class'}
+                    selectName={'class-change'}
+                    selectValue={props.character.className}
+                    selectList={classList}
+                />
             </Grid>
         </form>
     );

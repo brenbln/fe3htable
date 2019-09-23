@@ -4,7 +4,6 @@ import Character from './Character';
 import Grid from '@material-ui/core/Grid';
 import CharTable from "./components/CharTable";
 import Selector from "./components/Selector";
-import "./App.css";
 
 var CHAR_NAME = 'Protagonist';
 var CLASS_NAME = "Noble"
@@ -26,20 +25,17 @@ class App extends Component {
   }
 
   render() {
-
     return (
-
-        <div>
-          <div className="table-display">
-            <CharTable character={this.state.character} />
-            <Grid container direction='row'>
-              {/* <div className="level-button">
-                <Button size="large" onClick={this.increaseLevel} variant='contained' color='primary'>Level</Button>
-              </div> */}
+            <Grid container direction='row' justify='flex-start'>
               <Selector character={this.state.character} onUpdate={this.onUpdate.bind(this)}></Selector>
+              <CharTable character={this.state.character} />
+            {/* <Grid container direction='row'>
+              <div className="level-button">
+                <Button size="large" onClick={this.increaseLevel} variant='contained' color='primary'>Level</Button>
+              </div>
+            </Grid> */}
             </Grid>
-          </div>
-        </div>
+        
 
     );
   }

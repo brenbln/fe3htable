@@ -11,7 +11,8 @@ export default class Character {
         this.unitBaseStat = {};
         this.unitBaseStat = Object.assign(this.unitBaseStat, CharBase.name[unitName]);
 
-        this.unitStat = this.unitBaseStat;
+        this.unitStat = {};
+        this.unitStat = Object.assign(this.unitStat, this.unitBaseStat);
 
         this.unitGrowthRate = CharGrowth.name[unitName];
         this.classGrowthRate = ClassGrowth.name[className];
@@ -38,20 +39,6 @@ export default class Character {
         }
     }
 
-    calculateStat() {
-        for (var stat in this.totalGrowthRate) {
-            var num = Math.floor((Math.random() * 100) + 1);
-            if (num <= this.totalGrowthRate[stat]) {
-                this.unitStat[stat]++;
-            }
-        }
-        this.level++;
-    }
-
-    getStats() {
-        return this.unitStat;
-    }
-
     updateChar(unitName) {
         this.unitName = unitName;
         this.unitBaseStat = Object.assign(this.unitBaseStat, CharBase.name[unitName]);
@@ -65,5 +52,15 @@ export default class Character {
         this.className = className;
         this.classGrowthRate = ClassGrowth.name[className];
         this.computeTotalGrowth();
+    }
+
+    calculateStat() {
+        for (var stat in this.totalGrowthRate) {
+            var num = Math.floor((Math.random() * 100) + 1);
+            if (num <= this.totalGrowthRate[stat]) {
+                this.unitStat[stat]++;
+            }
+        }
+        this.level++;
     }
 };
